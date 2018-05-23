@@ -16,6 +16,11 @@
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
     <!-- 头部 -->
+    <!-- 头部 -->
+    <!-- 头部 -->
+    <!-- 头部 -->
+    <!-- 头部 -->
+    <!-- 头部 -->
       <include file="common:head" />
       <!-- 头部结束 -->
       <!-- 左侧 -->
@@ -122,6 +127,23 @@
     </div>
 
     <include file="common:js" />
-         <script>	// 通过ID删除	function delByIds(_this, id, m)	{	  if(!confirm("确定要删除吗？")){	    return false;	  }	  var delUrl = "{:U('Admin/Admin/delById')}";	  $.post(delUrl, {id : id, m : m}, function (re){	    if(re == 1){	      $(_this).parents('tr').remove();	    }else if(re == 2){	    	alert("先编辑转移客户人员!");	    	return;	    }	  })	}	</script>  
+         <script>
+	// 通过ID删除
+	function delByIds(_this, id, m)
+	{
+	  if(!confirm("确定要删除吗？")){
+	    return false;
+	  }
+	  var delUrl = "{:U('Admin/Admin/delById')}";
+	  $.post(delUrl, {id : id, m : m}, function (re){
+	    if(re == 1){
+	      $(_this).parents('tr').remove();
+	    }else if(re == 2){
+	    	alert("先编辑转移客户人员!");
+	    	return;
+	    }
+	  })
+	}
+	</script>  
   </body>
 </html>
