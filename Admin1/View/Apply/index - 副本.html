@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="laydate/laydate.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .img {
+        width: 1280px;
+        padding-bottom: 50px;
+        background-size: 1280px 800px;
+        font-size: 30px;
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+    }
+    li {
+        list-style: none;
+    }
+    a,input {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    ul {
+        position: absolute;
+        bottom:0;
+    }
+    li {
+        width: 408px;
+        height: 200px;
+        line-height: 200px;
+        background: rgba(0,0,0,0.6);
+        float: left;
+        border-right: 1px solid #fff;
+        text-align: center;
+    }
+    li:not(:first-child) img {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        top: 8px;
+        padding-right: 15px;
+    }
+    li:first-child img {
+        width: 300px;
+        margin-top: 55px;
+    }
+    a {
+        color: #fff;
+    }
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+        margin-bottom: 22px;
+    }
+    .left {
+        text-align: left;
+        float: left;
+    }
+    .left img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        width: 22px;
+    }
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    #form {
+        width: 1010px;
+        /*height: 500px;*/
+        /*background: red;*/
+        margin: 50px auto;
+        box-sizing: border-box;
+        color: #333;
+    }
+    .grounp {
+        width: 500px;
+        height: 50px;
+        line-height: 50px;
+        background: #fff;
+        box-sizing: border-box;
+        border: 1px solid #cecece;
+        margin-bottom: 10px;
+        float: left;
+        margin-right: 10px;
+    }
+    .grounp:nth-of-type(2n) {
+        margin-right: 0px;
+    }
+    input::-ms-input-placeholder{color:#dadada}
+    input::-webkit-input-placeholder{color:#dadada}
+    input::-moz-placeholder{color:#dadada}
+    .input,.select {
+        width: 255px;
+        height: 42px;
+        line-height: 42px;
+        margin-left: 30px;
+        position: relative;
+        bottom: 6px;
+        border: none;
+        outline: none;
+        font-size: 21px;
+    }
+    .select {
+        width: 260px;
+    }
+    .select {
+        color: #747474;
+        bottom: 2px;
+    }
+    label {
+        margin-left: 10px;
+        position: relative;
+        bottom: 4px;
+        font-size: 22px;
+        color: #747474;
+        letter-spacing: 3px;
+    }
+    .button {
+        color: #fff;
+        background: #d9a229;
+        width: 1000px;
+        display: block;
+        margin:0 auto;
+        outline: none;
+        font-size: 30px;
+        box-shadow: 2px 2px 2px #a0a0a0;
+        border-radius: 6px;
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        position: relative;
+        top: 20px;
+    }
+    h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        font-weight: normal;
+        color: #5b5555;
+    }
+    .border {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .span {
+        color: red;
+        position: relative;
+        top:6px;
+    }
+    .border_specialy {
+        position: relative;
+    }
+    .grounp_specialy {
+        position: relative;
+    }
+    .grounp_specialy .inputs {
+        position: absolute;
+        left: 196px;
+        top: 0px;
+        font-size: 19px;
+    }
+    .two {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 497px;
+        height: 528px;
+        border: 1px solid #cecece;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .mores {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #ccc;
+        background: #bbbbc2;
+        color: #fff;
+        font-size: 20px;
+        border-radius: 10px;
+        outline: none;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+    .dispaly1 {
+        display: none;
+    }
+    /*.two img {*/
+        /*!*width: 100%;*!*/
+        /*height: 100%;*/
+    /*}*/
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <div class="left">
+            <a href="http://47.92.119.237:8888/Signing/"><img src="http://47.92.119.237:8888/img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">现金业务申请表</span>
+    </div>
+    <form action="/Admin/Apply/add" method="post" id="form" onsubmit="return checkform()"  enctype="multipart/form-data">
+        <h2>个人信息</h2>
+        <div class="border border_specialy" style="height: 920px;">
+            <div class="grounp">
+                <label for="input0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>申请人姓名</label>
+                <input name="name" type="text" placeholder="必填" id="input0" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>性别</label>
+                <select required name="sex" id="input1" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>婚姻状况</label>
+                <select required name="sex" id="input2" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">未婚</option>
+                    <option value="1">已婚</option>
+                    <option value="2">离异</option>
+                    <option value="3">丧偶</option>
+                </select>
+            </div>
+            <!-- <div class="grounp">
+                 <label for="input40">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                 <input type="text" placeholder="请输入" id="input40" class="input">
+             </div>-->
+            <div class="grounp">
+                <label for="input3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件类型</label>
+                <input type="text" name="phone" placeholder="必填" id="input3" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件号码</label>
+                <input type="text" name="phone" placeholder="必填" id="input4" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件到期日</label>
+                <input type="text" name="phone" placeholder="必填" id="input5" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>最高学历</label>
+                <input type="text" name="phone" placeholder="必填" id="input6" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>出生日期</label>
+                <input type="text" name="phone" placeholder="必填" id="input7" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>年龄</label>
+                <input type="number" name="children" placeholder="必填" id="input8" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>民族</label>
+                <input type="text" name="children" placeholder="必填" id="input9" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>职业</label>
+                <input type="text" name="children" placeholder="必填" id="input10" class="input" required>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>月收入</label>
+                <input type="number" style="width: 200px;" name="children" placeholder="必填" id="input11" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;">元</span>
+            <div class="grounp">
+                <label for="input12">&nbsp;&nbsp;&nbsp;<span class="span">*</span>户籍详细地址</label>
+                <input type="text" name="phone" placeholder="必填" id="input12" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input13">&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位所示行业</label>
+                <input type="text" name="phone" placeholder="必填" id="input13" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input14"><span class="span">*</span>本单位工作年限</label>
+                <input type="text" name="phone" placeholder="必填" id="input14" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>现居住地址</label>
+                <input type="text" name="phone" placeholder="必填" id="input15" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input16">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>学历</label>
+                <select required name="sex" id="input16" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">初中及以下</option>
+                    <option value="1">高中或中专</option>
+                    <option value="2">大专</option>
+                    <option value="3">本科及以上</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input17">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位电话</label>
+                <input type="text" name="phone" placeholder="必填" id="input17" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位名称</label>
+                <input type="text" name="phone" placeholder="必填" id="input18" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input19">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>手机号码</label>
+                <input type="number" name="phone" placeholder="必填" id="input19" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>住址电话</label>
+                <input type="text" name="phone" placeholder="必填" id="input20" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住址类别</label>
+                <select required name="sex" id="input21" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">自有住房</option>
+                    <option value="1">家族拥有</option>
+                    <option value="2">公司宿舍</option>
+                    <option value="3">朋友拥有</option>
+                </select>
+            </div>
+            <div class="grounp" style="width: 468px;margin-right: 0px;">
+                <label for="input22">&nbsp;&nbsp;&nbsp;每月还款/租金</label>
+                <input type="number" style="width: 200px;" name="phone" placeholder="选填" id="input22" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;margin-top: 7px;float: left;">元</span>
+            <div class="grounp" style="margin-left: 10px;">
+                <label for="input23">&nbsp;&nbsp;&nbsp;&nbsp;起始居住时间</label>
+                <input type="text" name="phone" placeholder="选填" id="input23" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ</label>
+                <input type="number" name="phone" placeholder="选填" id="input24" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input25">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮编</label>
+                <input type="text" name="phone" placeholder="选填" id="input25" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与谁同住</label>
+                <select required name="sex" id="input26" class="select" style="width: 270px;">
+                    <option value="">请选择</option>
+                    <option value="0">独居</option>
+                    <option value="1">父母</option>
+                    <option value="2">兄弟/姐妹</option>
+                    <option value="3">子女</option>
+                    <option value="4">同事</option>
+                    <option value="5">其他</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input27">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人数</label>
+                <input type="number" name="phone" placeholder="选填" id="input27" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input28">子女是否在当地生活或学习</label>
+                <select required name="sex" id="input28" class="select" style="width: 146px;">
+                    <option value="">请选择</option>
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                </select>
+            </div>
+            <!--<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>-->
+        </div>
+        <input type="button" value="更多" class="mores">
+        <h2 class="h2-wife dispaly1">联系人信息</h2>
+        <div class="border border-wife dispaly1" style="height: 552px;">
+            <div class="grounp">
+                <label for="input29">配偶资料(是否知悉借款)</label>
+                <select required name="sex" id="input29" class="select" style="width: 175px;">
+                    <option value="">请选择</option>
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名</label>
+                <input name="name" type="text" placeholder="选填" id="input30" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input31">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年龄</label>
+                <input name="name" type="number" placeholder="选填" id="input31" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input32">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="phone" placeholder="选填" id="input32" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input33">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证件类型</label>
+                <input type="text" name="phone" placeholder="选填" id="input33" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input34">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="phone" placeholder="选填" id="input34" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input35">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="phone" placeholder="选填" id="input35" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input36">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="phone" placeholder="选填" id="input36" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input37">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="text" name="phone" placeholder="选填" id="input37" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input38">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职务</label>
+                <input type="text" name="phone" placeholder="选填" id="input38" class="input" required>
+            </div>
+            <div class="grounp" style="width: 468px;margin-right: 0px;">
+                <label for="input39">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年收入</label>
+                <input type="text" style="width: 200px;" name="phone" placeholder="选填" id="input39" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;margin-top: 7px;float: left;">元</span>
+            <div class="grounp" style="margin-left: 10px;">
+                <label for="input40">&nbsp;&nbsp;&nbsp;&nbsp;直系亲属姓名</label>
+                <input type="text" name="phone" placeholder="选填" id="input40" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input41">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select required name="sex" id="input41" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input42">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <select required name="sex" id="input42" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">父母</option>
+                    <option value="1">兄弟/姐妹</option>
+                    <option value="2">其他</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input43">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="phone" placeholder="选填" id="input43" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input44">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="phone" placeholder="选填" id="input44" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="text" name="phone" placeholder="选填" id="input45" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input46">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="phone" placeholder="选填" id="input46" class="input" required>
+            </div>
+        </div>
+        <h2 class="dispaly1">自营</h2>
+        <div class="border height dispaly1" style="height: 196px;">
+            <div class="grounp">
+                <label for="input47">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经营场所</label>
+                <select required name="sex" id="input47" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">自有</option>
+                    <option value="1">租用</option>
+                    <option value="2">按揭</option>
+                </select>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input48">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月租￥</label>
+                <input type="number" style="width: 200px;" name="phone" placeholder="选填" id="input48" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;">元</span>
+            <div class="grounp">
+                <label for="input49">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成立日期</label>
+                <input type="text" name="phone" placeholder="选填" id="input49" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;雇员人数</label>
+                <input type="text" name="phone" placeholder="选填" id="input50" class="input" required>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input51">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月均营业额</label>
+                <input type="text" style="width: 200px;" name="phone" placeholder="选填" id="input51" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;float: left;margin-top: 7px;">元</span>
+        </div>
+
+
+
+        <h2 class="dispaly1">职业信息</h2>
+        <div class="border dispaly1" style="height: 315px;">
+            <div class="grounp">
+                <label for="input71">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input71" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input72">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input72" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input52">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input52" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input53">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所属部门</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input53" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input54">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职务</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input54" class="input" required>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input55">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税后年收入</label>
+                <input type="number" style="width: 200px;" name="colleaguename" placeholder="选填" id="input55" class="input" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;">元</span>
+            <div class="grounp">
+                <label for="input56">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在职年限</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input56" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input57">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行业类别</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input57" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input58">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业性质</label>
+                <select required name="sex" id="input58" class="select" style="width: 270px;">
+                    <option value="">请选择</option>
+                    <option value="0">政府机关</option>
+                    <option value="1">事业单位</option>
+                    <option value="2">国有企业</option>
+                    <option value="3">合资企业</option>
+                    <option value="4">民营</option>
+                    <option value="5">个体</option>
+                    <option value="6">其他</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input59">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;员工规模</label>
+                <select required name="sex" id="input59" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">1-10人</option>
+                    <option value="1">11-50人</option>
+                    <option value="2">51-100人</option>
+                    <option value="3">100人以上</option>
+                </select>
+            </div>
+
+</div>
+        <h2 class="dispaly1">其他联系人</h2>
+        <div class="border dispaly1" style="height: 309px;">
+            <div class="grounp">
+                <label for="input60">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;朋友姓名</label>
+                <input type="text" name="friendname" placeholder="选填" id="input60" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input61">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select required name="sex" id="input61" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input62">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <input type="text" name="friendname" placeholder="选填" id="input62" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input63">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="friendname" placeholder="选填" id="input63" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input64">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;朋友姓名</label>
+                <input type="text" name="friendname" placeholder="选填" id="input64" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input65">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select required name="sex" id="input65" class="select">
+                    <option value="">请选择</option>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input66">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <input type="text" name="friendname" placeholder="选填" id="input66" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input67">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="friendname" placeholder="选填" id="input67" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input68">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贷款用途</label>
+                <input type="text" name="friendname" placeholder="选填" id="input68" class="input" required>
+            </div>
+        </div>
+        <h2>其他</h2>
+        <div class="border">
+            <div class="grounp">
+                <label for="input69">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>部门</label>
+                <select name="branch" id="input69" style="width: 250px;" class="bumen sea select" onchange="fp(this.value)" required>
+                    <option value='' disabled selected>请选择</option>
+                    <option value=16>宝安1部总监</option>
+                    <option value=17>宝安1部</option>
+                    <option value=18>宝安2部总监</option>
+                    <option value=19>宝安2部</option>
+                    <option value=30>现金1部总监</option>
+                    <option value=29>现金1部</option>
+                    <option value=7>现金2部总监</option>
+                    <option value=8>现金2部</option>
+                    <option value=25>现金3部总监</option>
+                    <option value=9>现金3部</option>
+                    <option value=33>现金4部</option>
+
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input70">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>业务员</label>
+                <select id="input70"  class="members sea select" name="salesman" required>
+                    <option value=''>请选择</option>
+                </select>
+            </div>
+        </div></form>
+        <input type="submit" id="tjbtn" value="提交" class="button">
+<include file="common:js" />
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script>
+    var flag=true;
+    $('#get').change(function (e) {
+                if ($('#get').find('option:selected').val()==2 && flag) {
+                    $('.height').animate({
+                        'height':'260px'
+                    },500);
+                   $('.h2-wife,.border-wife').hide();
+                   $('.choose').after('<br><div class="grounp a"> <label for="name">&nbsp;&nbsp;<span class="span">*</span>其他亲属姓名</label>'+
+                '<input type="text" placeholder="选填" name="qtrelativesname" class="input"></div> <div class="grounp b">'+
+                '<label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>电话</label>'+
+                '<input type="number" placeholder="选填" name="qtrelativestel" class="input"> </div> <div class="grounp c">'+
+                '<label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位</label>'+
+                '<input type="text" placeholder="选填" name="qtrelativesdw" class="input"> </div> <div class="grounp d">'+
+                '<label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住宅地址</label>'+
+                '<input type="text" placeholder="选填" name="qtrelativesadrs" class="input"></div>');
+                    flag=false;
+        }else if ($('#get').find('option:selected').val()!=2) {
+                    $('.h2-wife,.border-wife').show();
+            $('.height').animate({
+                'height':'123px'
+            },500,function () {
+                $('.a,.b,.c,.d').remove();
+                $('.height').animate({
+                    'paddingBottom':'16px'
+                })
+            });
+//            $('.a,.b,.c,.d').remove();
+            flag=true;
+        }
+    });
+
+    /*$('.choose').change(function () {
+        var val=$('#get').find('option:selected').val();
+        if (val==2) {
+            alert(2)
+        }
+    })*/
+    //分配客户
+    function fp(rid){
+        // $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+        //     $(".members").empty();
+        //     for(i=0;i<data.length;i++){
+        //         $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+        //     }
+        // })
+        if(rid=='33'){
+            $(".members").empty();
+            $(".members").append("<option value='65'>陈浩</option><option value='66'>宋远翔</option><option value='127'>刘创</option><option value='128'>纪雪铭</option><option value='136'>王俪瑄</option><option value='118'>何思敏</option><option value='147'>郭丽萍</option><option value='172'>冠成金服</option>");
+        }else{
+           $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+    });
+    flags=true;
+    function checkform(){
+        if(flags){
+            flags=false;
+            $("#tjbtn").hide();
+            return true;
+        }else{
+            alert("不要重复提交");
+            return false;
+        }
+    }
+    
+    function showPicture(img) {
+        var objUrl = getObjectURL(img.files[0]);
+        var $img=$("#imgss");
+        if (objUrl) {
+            $img.attr("src", objUrl).load(function () {
+                var b=this.width/this.height;
+                var a=$('.two').width()/$('.two').height();
+                if (a>b) {
+                    $img.css('height','95%').css('width','auto');
+                }else {
+                    $img.css('height','auto').css('width','95%');
+                }
+            });
+            $('.two').css('background','#ededed')
+
+        }
+    }
+
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+
+        return url;
+    }
+
+    $("#tjbtn").click(function(){
+        // alert("11")
+    });
+
+    $("#input2").blur(function(){
+        var phone=$(this).val();
+        $.get('/Admin/Apply/selectphone',{phone:phone},function(data){
+            if(data==1){
+                $("#lyhs").show();
+            }else{
+                $("#lyhs").hide();
+            }
+        });
+    });
+    (function () {
+        var count=true;
+        $('.mores').click(function () {
+            if (count) {
+                $('.dispaly1').show();
+                count=false;
+            }else {
+                $('.dispaly1').hide();
+                count=true;
+            }
+        })
+    })()
+    !function(){
+        laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+        laydate({elem: '#input5'});//绑定元素
+        laydate({elem: '#input23'});
+    }();
+
+</script>
+</body>
+</html>
